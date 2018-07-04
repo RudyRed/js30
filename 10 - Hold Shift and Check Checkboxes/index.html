@@ -99,6 +99,27 @@
   </div>
 
 <script>
+
+  const checkboxes = document.querySelectorAll('input[type=checkbox]');
+  let lastClicked = null;
+
+  const toggleCheckbox = function (e) {
+    const clicked = Number(e.target.id);
+
+    if (e.shiftKey && this.checked && lastClicked !== null && checkboxes[lastClicked].checked) {
+      for (let i = Math.min(clicked, lastClicked); i <= Math.max(clicked, lastClicked); i++) {
+        checkboxes[i].checked = true;
+      }
+    }
+
+    lastClicked = clicked;
+  }
+
+  checkboxes.forEach((checkbox, i) => {
+    checkbox.setAttribute('id', i);
+    checkbox.addEventListener('click', toggleCheckbox);
+  });
+
 </script>
 </body>
 </html>
